@@ -1,17 +1,16 @@
 import React from "react";
+import { Route } from "react-router-dom";
 
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import CloseIcon from "@material-ui/icons/Close";
+import { Game } from "pages";
+// import { Field } from "./components";
 
-import "./index.scss";
+import "./styles/index.scss";
 
 function App() {
   return (
     <div className="wrapper">
-      <div className="field-item">
-        <RadioButtonUncheckedIcon style={{ "font-size": "100px" }} />
-        <CloseIcon style={{ "font-size": "100px" }} />
-      </div>
+      <Route exact path="/game" component={Game} />
+      {/* <Field /> */}
     </div>
   );
 }

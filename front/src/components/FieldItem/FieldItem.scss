@@ -1,0 +1,17 @@
+.field-item {
+  height: 200px;
+  width: 200px;
+  background-color: #c4c4c4;
+  border-radius: 15px;
+
+  .MuiSvgIcon-root {
+    margin: 25px;
+
+    &--is-me {
+      color: #52be5d;
+    }
+    &--is-not-me {
+      color: #b95976;
+    }
+  }
+}
