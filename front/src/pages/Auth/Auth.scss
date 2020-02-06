@@ -1,0 +1,47 @@
+.auth {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  &__content {
+    position: relative;
+    top: calc(50% - 200px);
+    left: calc(50% - 165px);
+    width: 325px;
+    // div {
+    // width: 250px;
+    // }
+    &-card {
+      .MuiCardContent-root {
+        padding: 20px;
+      }
+      h2 {
+        width: 100%;
+        font-weight: 300;
+        text-align: center;
+        margin-top: 35px;
+        margin-bottom: 5px;
+      }
+
+      .MuiSvgIcon-root {
+        color: rgba(0, 0, 0, 0.75);
+        padding-top: 26px;
+      }
+
+      #input-with-icon-grid {
+        width: 250px;
+      }
+      .submit-btn {
+        margin-top: 30px;
+        width: 280px;
+      }
+      .change-sign-btn {
+        margin-top: 8px;
+        width: 280px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
