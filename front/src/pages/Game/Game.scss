@@ -1,0 +1,31 @@
+.game {
+  &-header {
+    margin-top: 40px;
+    margin-left: 615px;
+    display: block;
+  }
+  align-items: center;
+
+  .game__content {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .games-score {
+      display: inline-block;
+      width: 200px;
+      margin-left: 150px;
+    }
+
+    .game__field {
+      width: 650px;
+      display: inline-block;
+    }
+
+    .chat__cnt {
+      align-self: flex-end;
+      display: inline-block;
+      margin: 50px;
+    }
+  }
+}

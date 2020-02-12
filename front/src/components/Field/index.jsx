@@ -29,7 +29,7 @@ const FormRow = ({ fieldRow, onItemClick }) => {
 
 const Field = ({ field, onItemClick }) => {
   return (
-    <div>
+    <div className="game__field">
       <Grid container>
         <Grid container item>
           <FormRow fieldRow={field.slice(0, 3)} onItemClick={onItemClick} />

@@ -1,0 +1,15 @@
+@import "~styles/variables";
+
+.games-score {
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .win-result {
+    color: $green;
+  }
+  .lose-result {
+    color: $red;
+  }
+}

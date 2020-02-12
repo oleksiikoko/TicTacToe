@@ -4,14 +4,12 @@ import classNames from "classnames";
 
 import "./Message.scss";
 
-const Message = ({ isMe }) => {
-  const curDate = format(new Date(), "HH:mm");
-  console.log(curDate);
+const Message = ({ text, date, isMe }) => {
   return (
     <div className={classNames("message", { "message--is-me": isMe })}>
       <div className="message__cnt">
-        <p className="message__cnt-text">TextMessage</p>
-        <p className="message__cnt-date">{curDate}</p>
+        <p className="message__cnt-text">{text}</p>
+        <p className="message__cnt-date">{format(date, "HH:mm")}</p>
       </div>
     </div>
   );

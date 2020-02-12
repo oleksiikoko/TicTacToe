@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
 
-import {
-  //  Field, GameHeader,
-  Message
-} from "components";
+import { Field, GameHeader, Chat, GamesScore } from "components";
+
+import "./Game.scss";
 
 const createEmptyField = () => {
   let field = new Array(9).fill(undefined);
@@ -38,18 +37,41 @@ const Game = () => {
     );
   };
 
+  const date = new Date();
+
   return (
-    <div>
-      <Message isMe={true} />
-      <Message isMe={false} />
+    <div className="game">
+      <div className="game__header">
+        <GameHeader
+          fstPlayerImg="https://images.pexels.com/photos/1226302/pexels-photo-1226302.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          sndPlayerImg="https://i.pinimg.com/736x/6a/f2/2e/6af22e3a7e5c4972c35500ecba2b7720.jpg"
+          score="3:3"
+          fstPlayerActive={true}
+        />
+      </div>
+      <div className="game__content">
+        <GamesScore
+          score={[
+            { winner: "1" },
+            { winner: "2" },
+            { winner: "2" },
+            { winner: "1" },
+            { winner: "1" },
+            { winner: "2" }
+          ]}
+        />
+        <Field field={field} onItemClick={onItemClick} />
+        <Chat
+          messages={[
+            { author: "2", text: "Some text", date: date },
+            { author: "1", text: "Some text", date: date },
+            { author: "2", text: "Thanks text", date: date },
+            { author: "1", text: "S=Nice game", date: date },
+            { author: "1", text: "Some text", date: date }
+          ]}
+        />
+      </div>
     </div>
-    // <GameHeader
-    //   fstPlayerImg="https://lh3.googleusercontent.com/proxy/Pj5Llx4SrLiT-QKD26eF1B04ma4FBAtU1Qfk42UnJzLQeUiSUD8v0fB91XSlmymdcNHTukBYyk83pkrn6NrCYSKQzGF2uglyfgUxHDw3h0gKfiiPO5RqIqlJpbPgQ6WKfEFGzVmHjFxuqQomnOG5MGu_HXf37-WieYQXtPx8VoqWM7iX"
-    //   sndPlayerImg="https://i.pinimg.com/736x/6a/f2/2e/6af22e3a7e5c4972c35500ecba2b7720.jpg"
-    //   score="3:3"
-    //   fstPlayerActive={true}
-    // />
-    // <Field field={field} onItemClick={onItemClick} />
   );
 };
 
