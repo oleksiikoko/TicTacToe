@@ -1,0 +1,43 @@
+.game-header__cnt {
+  height: 110px;
+  width: 480px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  // align-content: top;
+  &--img {
+    height: 100px;
+    width: 180px;
+    display: inline-block;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 50px;
+
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+    &-active-green {
+      img {
+        border: 5px solid #52be5d;
+      }
+    }
+    &-active-red {
+      img {
+        border: 5px solid #b95976;
+      }
+    }
+  }
+
+  &--score {
+    display: inline-block;
+    // height: 100px;
+    margin: 33px;
+    vertical-align: top;
+    p {
+      font-size: 37px;
+      font-family: "Roboto", sans-serif;
+      margin: 0;
+    }
+  }
+}

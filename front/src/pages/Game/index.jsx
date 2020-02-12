@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
 
-import { Field } from "components";
+import {
+  //  Field, GameHeader,
+  Message
+} from "components";
 
 const createEmptyField = () => {
   let field = new Array(9).fill(undefined);
@@ -35,7 +38,19 @@ const Game = () => {
     );
   };
 
-  return <Field field={field} onItemClick={onItemClick} />;
+  return (
+    <div>
+      <Message isMe={true} />
+      <Message isMe={false} />
+    </div>
+    // <GameHeader
+    //   fstPlayerImg="https://lh3.googleusercontent.com/proxy/Pj5Llx4SrLiT-QKD26eF1B04ma4FBAtU1Qfk42UnJzLQeUiSUD8v0fB91XSlmymdcNHTukBYyk83pkrn6NrCYSKQzGF2uglyfgUxHDw3h0gKfiiPO5RqIqlJpbPgQ6WKfEFGzVmHjFxuqQomnOG5MGu_HXf37-WieYQXtPx8VoqWM7iX"
+    //   sndPlayerImg="https://i.pinimg.com/736x/6a/f2/2e/6af22e3a7e5c4972c35500ecba2b7720.jpg"
+    //   score="3:3"
+    //   fstPlayerActive={true}
+    // />
+    // <Field field={field} onItemClick={onItemClick} />
+  );
 };
 
 export default Game;
