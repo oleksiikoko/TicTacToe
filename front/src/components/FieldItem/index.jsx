@@ -20,7 +20,6 @@ const FieldItem = ({ _id, isEmpty, isMe, isActive, isCross, onClick }) => {
               "MuiSvgIcon-root--is-me": isMe,
               "MuiSvgIcon-root--is-not-me": !isMe
             })}
-            style={{ "font-size": "200px" }}
           />
         ) : (
           <RadioButtonUncheckedIcon
@@ -28,7 +27,6 @@ const FieldItem = ({ _id, isEmpty, isMe, isActive, isCross, onClick }) => {
               "MuiSvgIcon-root--is-me": isMe,
               "MuiSvgIcon-root--is-not-me": !isMe
             })}
-            style={{ "font-size": "200px" }}
           />
         ))}
     </div>

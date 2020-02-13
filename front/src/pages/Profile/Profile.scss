@@ -1,3 +1,5 @@
+@import "~styles/variables";
+
 .profile {
   width: 80%;
   height: 90%;
@@ -40,8 +42,74 @@
 
   &__games {
     position: relative;
-    top: 10%;
-    left: 45%;
+    // top: 10%;
+    left: 400px;
+
+    overflow: auto;
+    height: calc(96% + 5px);
+    width: 60%;
+    padding-top: 30px;
+    &-game {
+      // height: 55px;
+      width: calc(100% - 10px);
+      border-radius: 25px;
+      margin: 30px 5px;
+      &-win {
+        box-shadow: 0px 2px 1px -1px $green, 0px 1px 1px 0px $green,
+          0px 1px 3px 0px $green;
+      }
+      &-lose {
+        box-shadow: 0px 2px 1px -1px $red, 0px 1px 1px 0px $red,
+          0px 1px 3px 0px $red;
+      }
+      &--short-info {
+        cursor: pointer;
+        // background-color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          margin: 16px 30px;
+          display: inline-block;
+          font-size: 18px;
+          font-weight: 400;
+        }
+      }
+      &--info {
+        padding: 20px;
+
+        // grid-column-gap: 50px;
+        .game__field {
+          display: grid;
+          grid-column-gap: 50px;
+          display: inline-block;
+          // .MuiGrid-item {
+          width: 135px;
+          // }
+          margin: 8px;
+          .field-item {
+            height: 35px;
+            width: 35px;
+            background-color: #c4c4c4;
+            border-radius: 15px;
+            padding: 0;
+
+            .MuiSvgIcon-root {
+              font-size: 35px;
+              margin: 0px;
+
+              &--is-me {
+                color: #52be5d;
+              }
+              &--is-not-me {
+                color: #b95976;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   // .MuiPaper-root {
   //   width: 80%;

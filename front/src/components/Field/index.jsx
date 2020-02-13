@@ -16,7 +16,7 @@ const FormRow = ({ fieldRow, onItemClick }) => {
               isEmpty={false}
               isMe={item.player === "1"}
               isCross={item.value === "x"}
-              onClick={onItemClick}
+              onClick={onItemClick && null}
             />
           ) : (
             <FieldItem _id={item._id} isEmpty={true} onClick={onItemClick} />

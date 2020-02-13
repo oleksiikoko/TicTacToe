@@ -18,7 +18,7 @@ const Profile = () => {
   const matchDate = new Date();
   const games = [
     { enemyName: "Any Name", myScore: "3", enemyScore: "2", date: matchDate },
-    { enemyName: "Any Name", myScore: "3", enemyScore: "2", date: matchDate },
+    { enemyName: "Any Name", myScore: "3", enemyScore: "8", date: matchDate },
     { enemyName: "Any Name", myScore: "3", enemyScore: "2", date: matchDate }
   ];
 
