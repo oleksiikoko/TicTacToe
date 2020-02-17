@@ -1,0 +1,68 @@
+login = (username, pass) => {
+
+}
+
+registration = () => {
+
+}
+
+auth = () => {
+
+}
+
+StartMatch (_id, _id) => {
+  match = db.createMatch;
+  game = db.createGame(match, 
+    user_type = [
+      {user: type}
+      {user: type}
+    ]
+    );
+
+  match.addGame()
+
+
+  onGameChange();
+  onChatMessage(match._id);
+
+  onGameEnd()
+
+  profile(_id);
+}
+
+onGameChange () => {
+  if(checkRules(game.getField, player_solution)) {
+    add(solution, game);
+  }
+
+
+  if(gameFinished){
+    addGameToMatch()
+  }
+}
+
+onGameEnd = () => {
+  match.addGame()
+  if (matchEnded)
+    match.end()
+}
+
+onChatMessage(match._id) => {
+  if(!chatExist) {
+    createChat(match_id)
+  }
+}
+
+profile = () {
+  getUserProfile = (user.id) => {
+
+  }
+
+  getGameList = (user._id) => {
+
+  }
+
+  onGameItemClick = (match._id) => {
+    return send.game();
+  }
+}

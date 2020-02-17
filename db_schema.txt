@@ -1,0 +1,75 @@
+user {
+  _id
+  email
+  firstName
+  lastName
+  passHash
+  avatar
+  creation
+  lastSeen
+
+  create()
+  get(_id)
+
+}
+
+game {
+  _id
+  players [
+    {
+    user
+    type
+    }
+  ]
+  field [
+    {
+      _id
+      isEmpty: bool
+      player: user
+      value: player[index].type
+    }
+  ]
+  score
+  date
+  finished: true
+
+  createGame(_id, _id, match_id) => {
+    
+  }
+  getGame()
+}
+
+match {
+  _id
+  games [
+    {game}
+  ]
+  score
+
+  createMatch()
+  addGame()
+}
+
+message {
+  _id
+  chatId :chat._id
+  text
+  sender :user._id
+  date
+
+  create(chat._id, text, sender)
+}
+
+chat {
+  _id
+  gameId: game._id
+}
+
+rait {
+  [
+    user
+    wins
+    losing
+    raitNumber
+  ]
+}
