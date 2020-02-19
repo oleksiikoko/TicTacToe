@@ -1,5 +1,7 @@
 const UserModel = require("../models/User");
 
+const createJWToken = require("../utils/createJWToken");
+
 class UserController {
   show = (req, res) => {
     const id = req.params.id;
@@ -35,6 +37,28 @@ class UserController {
           message: reason
         });
       });
+  };
+
+  login = (req, res) => {
+    const postData = {
+      username: req.body.username,
+      password: req.body.password
+    };
+
+    UserModel.findOne({ username: postData.username }, (err, user) => {
+      if (user.password === postData.password) {
+        const token = createJWToken(user);
+        res.json({
+          status: "success",
+          token
+        });
+      } else {
+        res.status(403).json({
+          status: "error",
+          message: "Incorrect password or username"
+        });
+      }
+    });
   };
 }
 
