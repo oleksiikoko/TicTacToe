@@ -27,6 +27,8 @@ app.post("/user/signup", UserController.create);
 app.get("/user/:id", UserController.show);
 
 app.post("/match/init", MatchController.create);
+app.post("/match/addgame", MatchController.addGame);
+app.post("/match/updategame", MatchController.updateGame);
 
 const PORT = 3002;
 

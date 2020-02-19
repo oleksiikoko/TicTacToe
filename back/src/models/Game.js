@@ -11,7 +11,7 @@ const GameSchema = new Schema({
       {
         user: {
           type: Schema.Types.ObjectId,
-          require: "usee in type is require"
+          require: "user in type is require"
         },
         user_type: {
           type: String,
@@ -25,16 +25,16 @@ const GameSchema = new Schema({
     type: [
       {
         isEmpty: Boolean,
-        players: Schema.Types.ObjectId
+        state: String
       }
     ]
   },
-  score: String,
+  winner: Schema.Types.ObjectId,
   date: {
     type: Date,
     default: new Date()
   },
-  finished: Boolean
+  finished: { type: Boolean, default: false }
 });
 
 const GameModel = mongoose.model("Game", GameSchema);

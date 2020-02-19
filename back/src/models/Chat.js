@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const ChatSchema = new Schema({
   game: {
-    type: Schema.Types.ObjectId,
-    required
+    type: Schema.Types.ObjectId
+    // required
   }
 });
 
