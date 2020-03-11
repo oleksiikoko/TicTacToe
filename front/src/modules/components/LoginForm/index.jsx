@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Card from "@material-ui/core/Card";
@@ -9,7 +9,28 @@ import Grid from "@material-ui/core/Grid";
 import LockIcon from "@material-ui/icons/Lock";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-const LoginForm = () => {
+import { userActions } from "redux/actions";
+
+import store from "redux/store";
+
+const LoginForm = onSubmit => {
+  // const history = useHistory();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    console.log("username :", username);
+    console.log("password :", password);
+    store
+      .dispatch(userActions.fetchUserSignin({ username, password }))
+      .then(({ status }) => {
+        if (status === "success") {
+          onSubmit();
+        }
+      })
+      .catch(() => console.log("LoginForm error login"));
+  };
+
   return (
     <Card className="auth__content-card">
       <h2>Sign in</h2>
@@ -25,6 +46,7 @@ const LoginForm = () => {
                   id="input-with-icon-grid"
                   label="Login"
                   name="login"
+                  onChange={event => setUsername(event.target.value)}
                 />
               </Grid>
             </Grid>
@@ -40,12 +62,18 @@ const LoginForm = () => {
                   type="password"
                   label="Password"
                   name="password"
+                  onChange={event => setPassword(event.target.value)}
                 />
               </Grid>
             </Grid>
           </div>
           <div>
-            <Button className="submit-btn" variant="contained" color="primary">
+            <Button
+              onClick={handleSubmit}
+              className="submit-btn"
+              variant="contained"
+              color="primary"
+            >
               Sign in
             </Button>
           </div>

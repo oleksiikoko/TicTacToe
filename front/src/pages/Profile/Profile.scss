@@ -40,6 +40,15 @@
     }
   }
 
+  &__start-game {
+    position: relative;
+    top: calc(100% - 85px);
+    left: 90px;
+    button {
+      width: 170px;
+    }
+  }
+
   &__games {
     position: relative;
     // top: 10%;

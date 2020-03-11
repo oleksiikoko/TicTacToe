@@ -1,0 +1,12 @@
+.start-game {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  .submit-btn {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 140px);
+    width: 280px;
+    height: 40px;
+  }
+}

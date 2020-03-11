@@ -12,11 +12,12 @@ const FormRow = ({ fieldRow, onItemClick }) => {
         <Grid item>
           {!item.isEmpty ? (
             <FieldItem
-              _id={item.key}
+              key={item._id}
+              _id={item._id}
               isEmpty={false}
-              isMe={item.player === "1"}
-              isCross={item.value === "x"}
-              onClick={onItemClick ? null : onItemClick}
+              isMe={item.isMe}
+              isCross={item.state === "x"}
+              onClick={onItemClick}
             />
           ) : (
             <FieldItem _id={item._id} isEmpty={true} onClick={onItemClick} />

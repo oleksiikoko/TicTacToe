@@ -4,22 +4,23 @@ const Schema = mongoose.Schema;
 const RatingSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    required
+    unique: true
+    // required
   },
-  win: {
+  wins: {
     type: Number,
     default: 0
   },
-  lose: {
+  losing: {
     type: Number,
     default: 0
   },
-  raiting_number: {
+  rating: {
     type: Number,
     default: 0
   }
 });
 
-const RatingModel = mongoose.model("Rait", RatingSchema);
+const RatingModel = mongoose.model("Rating", RatingSchema);
 
 module.exports = RatingModel;

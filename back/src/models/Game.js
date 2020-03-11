@@ -2,15 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-  match: {
-    type: Schema.Types.ObjectId,
-    require: "match is require"
-  },
-  players: {
+  users: {
     type: [
       {
         user: {
           type: Schema.Types.ObjectId,
+          ref: "User",
           require: "user in type is require"
         },
         user_type: {
@@ -29,7 +26,10 @@ const GameSchema = new Schema({
       }
     ]
   },
-  winner: Schema.Types.ObjectId,
+  winner: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   date: {
     type: Date,
     default: new Date()

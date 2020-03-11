@@ -1,6 +1,10 @@
 const UserModel = require("../models/User");
 
 const createJWToken = require("../utils/createJWToken");
+const verifyJWToken = require("../utils/verifyJWToken");
+
+const RatingController = require("../controllers/RatingController")
+  .RatingController;
 
 class UserController {
   show = (req, res) => {
@@ -15,11 +19,23 @@ class UserController {
     });
   };
 
+  getMe = (req, res) => {
+    const token = req.headers.token;
+    verifyJWToken(token)
+      .then(user => {
+        console.log("user", user.data._doc);
+        res.json(user);
+      })
+      .catch(err => {
+        res.status(403).json({ message: "Invalid auth token provided." });
+      });
+  };
+
   create = (req, res) => {
     const postData = {
       email: req.body.email,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      first_name: req.body.firstName,
+      last_name: req.body.lastName,
       username: req.body.username,
       password: req.body.password
     };
@@ -29,6 +45,7 @@ class UserController {
     user
       .save()
       .then(obj => {
+        new RatingController().create(obj._id);
         res.json(obj);
       })
       .catch(reason => {
@@ -48,6 +65,7 @@ class UserController {
     UserModel.findOne({ username: postData.username }, (err, user) => {
       if (user.password === postData.password) {
         const token = createJWToken(user);
+
         res.json({
           status: "success",
           token
