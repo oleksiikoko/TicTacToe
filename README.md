@@ -3,8 +3,6 @@
 Creating a personal profile where statistics are displayed and you can view all games by clicking on any of the profiles in the profile.
 The game is up to 3 points.
 
-# Technology
-
 ## Front
 
 - ReactJs
