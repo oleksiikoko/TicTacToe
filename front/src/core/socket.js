@@ -1,5 +1,5 @@
 import io from "socket.io-client";
 
-const socket = io(window.location.origin.replace("3000", "3002"));
+const socket = io("https://pet-tictactoe-back.herokuapp.com");
 
 export default socket;

@@ -2,9 +2,33 @@
   height: 100%;
   width: 100%;
   position: relative;
+
+  &__rules {
+    position: absolute;
+    top: calc(50% - 230px);
+    left: calc(50% - 140px);
+    h2 {
+      margin: 0px;
+      margin-top: 25px;
+      padding: 0px;
+      font-size: 26px;
+      font-weight: 350;
+      text-align: center;
+      width: 280px;
+    }
+    p {
+      margin: 0px;
+      margin-top: 15px;
+      padding: 0px;
+      font-size: 18px;
+      font-weight: 350;
+      width: 280px;
+    }
+  }
+
   .submit-btn {
     position: absolute;
-    top: calc(50% - 20px);
+    top: calc(50% + 40px);
     left: calc(50% - 140px);
     width: 280px;
     height: 40px;

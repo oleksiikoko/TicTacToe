@@ -32,6 +32,15 @@ const StartGame = ({ user_id }) => {
 
   return (
     <div className="start-game">
+      <div className="start-game__rules">
+        <h2>Game rules</h2>
+        <p>
+          The game lasts up to three points. Each match has a different side. A
+          draw does not give points to anyone, but remains in profile. If within
+          30 seconds the enemy is not found, there will be a game with a bot.
+          Good luck!
+        </p>
+      </div>
       <Button
         onClick={handleSubmit}
         className="submit-btn"

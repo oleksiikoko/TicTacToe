@@ -14,7 +14,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { userActions } from "redux/actions";
 import store from "redux/store";
 
-const RegisterForm = onSubmit => {
+const RegisterForm = ({ onSubmit }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,9 +38,10 @@ const RegisterForm = onSubmit => {
           password
         })
       )
-      .then(status => {
+      .then(({ status }) => {
+        console.log("status :", status);
         if (status === "success") {
-          onSubmit();
+          onSubmit("/signin");
         }
       })
       .catch(err => {

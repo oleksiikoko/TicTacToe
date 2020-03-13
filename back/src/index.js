@@ -9,8 +9,8 @@ const createSocket = require("./core/socket");
 
 mongoose = require("mongoose");
 
-const DB = "tictactoe";
-mongoose.connect(`mongodb://localhost:27017/${DB}`, {
+const DB = "heroku_dlmt5v89";
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -23,8 +23,6 @@ const io = createSocket(http);
 
 createRoutes(app, io);
 
-const PORT = 3002;
-
-http.listen(PORT, function() {
-  console.log(`Server: http://localhost:${PORT}`);
+http.listen(process.env.PORT || 3000, function() {
+  console.log(`Server: http://localhost:${process.env.PORT}`);
 });

@@ -75,6 +75,8 @@ module.exports = gameFinished = field => {
         return { result: true, state: multiField[0][2].state };
     }
   }
+  if (field.filter(item => item.isEmpty === false).length === 9)
+    return { result: true };
 
-  return false;
+  return { result: false };
 };

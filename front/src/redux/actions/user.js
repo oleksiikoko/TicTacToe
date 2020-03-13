@@ -13,14 +13,14 @@ const Actions = {
     userApi
       .getMe()
       .then(({ data }) => {
-        // console.log("data", data.data._doc);
         dispatch(Actions.setUserData(data.data._doc));
       })
       .catch(err => {
-        if (err.response.status === 403) {
-          dispatch(Actions.setIsAuth(false));
-          delete window.localStorage.token;
-        }
+        // console.log("err", err);
+        // if (err.response.status === 403) {
+        dispatch(Actions.setIsAuth(false));
+        delete window.localStorage.token;
+        // }
       });
   },
   fetchUserSignin: postData => dispatch => {
@@ -41,8 +41,9 @@ const Actions = {
   fetchUserSignup: postData => dispatch => {
     return userApi
       .signUp(postData)
-      .then(() => {
-        dispatch(Actions.fetchUserSignin(postData));
+      .then(({ data }) => {
+        console.log("data", data);
+        return data;
       })
       .catch(response => {
         console.log("fetchUserSignup: response", response);

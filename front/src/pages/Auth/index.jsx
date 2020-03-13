@@ -7,8 +7,9 @@ import "./Auth.scss";
 
 const Auth = () => {
   const history = useHistory();
-  const onSubmit = () => {
-    history.push("/profile");
+  const onSubmit = url => {
+    console.log("url :", url);
+    history.push(url);
   };
   return (
     <section className="auth">

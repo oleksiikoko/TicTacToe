@@ -25,6 +25,7 @@ const Match = ({ match, curMatch, fetchMatch }) => {
   const [matchScore, setMatchScore] = useState(null);
   const [enemyScore, setEnemyScore] = useState(0);
   const [activeUser, setActiveUser] = useState(false);
+  const [enemyId, setEnemyId] = useState("");
 
   const user_id = store.getState().user.data._id;
 
@@ -50,6 +51,10 @@ const Match = ({ match, curMatch, fetchMatch }) => {
   const actionAllowed = game => {
     const state_o = game.field.filter(item => item.state === "o").length;
     const state_x = game.field.filter(item => item.state === "x").length;
+    console.log("field :", game.field);
+
+    console.log("state_o :", state_o);
+    console.log("state_x :", state_x);
 
     if (state_o === state_x && myState === "x") return true;
     if (state_o === state_x - 1 && myState === "o") return true;
@@ -58,6 +63,13 @@ const Match = ({ match, curMatch, fetchMatch }) => {
 
   useEffect(() => {
     if (curMatch) {
+      const eId = curMatch.users.filter(user => {
+        console.log("user :", user);
+        return user !== user_id;
+      });
+      setEnemyId(eId[0]);
+      console.log("enemyId :", eId[0]);
+
       let game = curMatch.games[curMatch.games.length - 1];
       setCurGame(gameParse(game));
 
@@ -68,13 +80,19 @@ const Match = ({ match, curMatch, fetchMatch }) => {
       );
       setEnemyScore(
         curMatch.games.filter(
-          game => game.finished === true && game.winner !== user_id
+          game => game.finished === true && game.winner === enemyId
         ).length
       );
 
       const temp = curMatch.games.map(item => {
         if (item.winner === undefined) return undefined;
-        return { winner: item.winner === user_id ? "1" : "2" };
+        if (item.winner === user_id) {
+          return { winner: "1" };
+        } else if (item.winner === enemyId) {
+          return { winner: "2" };
+        } else {
+          return { winner: "3" };
+        }
       });
 
       setMatchScore(temp);

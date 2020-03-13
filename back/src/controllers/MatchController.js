@@ -1,5 +1,6 @@
 const MatchModel = require("../models/Match");
 const GameModel = require("../models/Game");
+const UserModel = require("../models/User");
 
 const gameFinished = require("../utils/gameFinished");
 
@@ -70,8 +71,20 @@ class MatchController {
     if (!this.queue.includes(req.body.user_id))
       this.queue.push(req.body.user_id);
 
-    console.log("this.queue", this.queue);
+    setTimeout(() => {
+      if (this.queue.length < 2) {
+        UserModel.findOne({ email: "bot@mail.com" }, (err, user) => {
+          if (user) {
+            this.queue.push(user._id);
+            this.buildGame(this.queue, res);
+          } else {
+            console.log("err", err);
+          }
+        });
+      }
+    }, 3000);
 
+    console.log("this.queue", this.queue);
     if (this.queue.length >= 2) {
       this.buildGame(this.queue, res);
     } else {
@@ -98,12 +111,18 @@ class MatchController {
     MatchModel.findOne({ _id: match_id })
       .populate("games")
       .exec((err, match) => {
-        const user1score = match.games.filter(
-          game => game.winner.toHexString() === match.users[0].toHexString()
-        );
-        const user2score = match.games.filter(
-          game => game.winner.toHexString() === match.users[1].toHexString()
-        );
+        const user1score = match.games.filter(game => {
+          if (game.winner) {
+            return game.winner.toHexString() === match.users[0].toHexString();
+          }
+          return false;
+        });
+        const user2score = match.games.filter(game => {
+          if (game.winner) {
+            return game.winner.toHexString() === match.users[1].toHexString();
+          }
+          return false;
+        });
 
         console.log("user2score", user2score.length);
 
@@ -144,8 +163,8 @@ class MatchController {
         } else {
           const postData = {
             users: [
-              { user: users[0].user, user_type: users[1].user_type },
-              { user: users[1].user, user_type: users[0].user_type }
+              { user: users[0].user, user_type: users[0].user_type },
+              { user: users[1].user, user_type: users[1].user_type }
             ],
             field: [
               { isEmpty: true },
@@ -185,92 +204,16 @@ class MatchController {
       });
   };
 
-  // gameFinished = field => {
-  //   const multiField = [
-  //     field.slice(0, 3),
-  //     field.slice(3, 6),
-  //     field.slice(6, 9)
-  //   ];
-  //   /*
-  //   x . .
-  //   x . .
-  //   x . .
-  //   */
-  //   for (let i = 0; i < 3; i++) {
-  //     let state;
-  //     if (multiField[0][i].isEmpty) {
-  //       continue;
-  //     } else {
-  //       state = multiField[0][i].state;
-  //     }
+  updateGame = async (req, res) => {
+    const bot = await UserModel.aggregate([
+      {
+        $match: {
+          email: "bot@mail.com"
+        }
+      }
+    ]);
+    console.log("bot", bot);
 
-  //     for (let j = 1; j < 3; j++) {
-  //       if (multiField[j][i].isEmpty) {
-  //         break;
-  //       } else {
-  //         if (multiField[j][i].state !== state) {
-  //           break;
-  //         }
-  //       }
-  //       if (j === 2) return { result: true, state: state };
-  //     }
-  //   }
-  //   /*
-  //   x x x
-  //   . . .
-  //   . . .
-  //   */
-  //   for (let i = 0; i < 3; i++) {
-  //     let state;
-  //     if (multiField[i][0].isEmpty) {
-  //       continue;
-  //     } else {
-  //       state = multiField[i][0].state;
-  //     }
-
-  //     for (let j = 1; j < 3; j++) {
-  //       if (multiField[i][j].isEmpty) {
-  //         break;
-  //       } else {
-  //         if (multiField[i][j].state !== state) {
-  //           break;
-  //         }
-  //       }
-  //       if (j === 2) return { result: true, state: state };
-  //     }
-  //   }
-  //   /*
-  //   x . .
-  //   . x .
-  //   . . x
-  //   */
-  //   if (!multiField[0][0].isEmpty) {
-  //     for (let i = 1; i < 3; i++) {
-  //       if (multiField[i][i].state !== multiField[0][0].state) {
-  //         break;
-  //       }
-  //       if (i === 2) return { result: true, state: multiField[0][0].state };
-  //     }
-  //   }
-  //   /*
-  //   . . x
-  //   . x .
-  //   x . .
-  //   */
-  //   if (!multiField[0][2].isEmpty) {
-  //     for (let i = 2, j = 0; i > 0, j < 3; i--, j++) {
-  //       if (multiField[i][j].state !== multiField[0][2].state) {
-  //         break;
-  //       }
-  //       if (i === 0 && j === 2)
-  //         return { result: true, state: multiField[0][2].state };
-  //     }
-  //   }
-
-  //   return false;
-  // };
-
-  updateGame = (req, res) => {
     GameModel.findOne({ _id: req.body.game_id }, (err, game) => {
       if (err || !game) {
         return res.status(500).json({
@@ -297,15 +240,22 @@ class MatchController {
             }
             const gameFinishedRes = gameFinished(game.field);
             if (gameFinishedRes.result) {
-              const winner = game.users.find(el => {
+              let winner = game.users.find(el => {
                 return el.user_type === gameFinishedRes.state;
               });
-              GameModel.findOneAndUpdate(
-                { _id: game._id },
-                {
+              console.log("winner", winner);
+              let update;
+              if (winner === undefined) {
+                update = { finished: true };
+              } else {
+                update = {
                   finished: true,
                   winner: winner.user
-                },
+                };
+              }
+              GameModel.findOneAndUpdate(
+                { _id: game._id },
+                update,
                 (err, game) => {
                   if (err || !game) {
                     res.status(500).json({ status: "error", message: err });
@@ -326,9 +276,33 @@ class MatchController {
               );
             } else {
               res.json(game);
-              GameModel.findOne({ _id: req.body.game_id }, (err, game) => {
-                this.io.emit("MATCH:GAME_UPDATE", game);
+              const secPlayer = game.users.find(user => {
+                console.log("user", user.user);
+                console.log("bot", bot[0]._id);
+                return user.user.toHexString() === bot[0]._id.toHexString();
               });
+              console.log("secPlayer", secPlayer);
+              if (secPlayer) {
+                const item = game.field.find(item => item.isEmpty);
+                console.log("secPlayer", secPlayer);
+                GameModel.findOneAndUpdate(
+                  { _id: game._id, "field._id": item._id },
+                  {
+                    $set: {
+                      "field.$.isEmpty": false,
+                      "field.$.state": secPlayer.user_type
+                    }
+                  },
+                  { new: true },
+                  (err, game) => {
+                    this.io.emit("MATCH:GAME_UPDATE", game);
+                  }
+                );
+              } else {
+                GameModel.findOne({ _id: req.body.game_id }, (err, game) => {
+                  this.io.emit("MATCH:GAME_UPDATE", game);
+                });
+              }
             }
           });
         } else {

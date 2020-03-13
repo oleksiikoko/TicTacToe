@@ -13,8 +13,6 @@ import "./Profile.scss";
 import Button from "@material-ui/core/Button";
 
 const Profile = ({ match, info, matches, rating, fetchProfile }) => {
-  // useEffect(() => {
-
   const history = useHistory();
   let _id;
   if (match.params.id) {
@@ -23,9 +21,7 @@ const Profile = ({ match, info, matches, rating, fetchProfile }) => {
     _id = store.getState().user.data._id;
   }
 
-  console.log("_id :", _id);
   if (info._id !== _id) fetchProfile({ userId: _id });
-  // }, [matches]);
 
   const startGame = () => {
     history.push("/startgame");

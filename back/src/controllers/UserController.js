@@ -7,6 +7,22 @@ const RatingController = require("../controllers/RatingController")
   .RatingController;
 
 class UserController {
+  constructor() {
+    UserModel.findOne({ email: "bot@mail.com" }, (err, user) => {
+      if (!user) {
+        const postData = {
+          email: "bot@mail.com",
+          first_name: "Bot",
+          last_name: "Player",
+          username: "bot",
+          password: "123456789"
+        };
+
+        this.create(postData);
+      }
+    });
+  }
+
   show = (req, res) => {
     const id = req.params.id;
     UserModel.findById(id, (err, user) => {
@@ -31,7 +47,7 @@ class UserController {
       });
   };
 
-  create = (req, res) => {
+  signup = (req, res) => {
     const postData = {
       email: req.body.email,
       first_name: req.body.firstName,
@@ -40,19 +56,30 @@ class UserController {
       password: req.body.password
     };
 
+    this.create(postData, res);
+  };
+
+  create = (postData, res) => {
     const user = new UserModel(postData);
 
     user
       .save()
       .then(obj => {
         new RatingController().create(obj._id);
-        res.json(obj);
+        if (res) {
+          res.json({
+            status: "success",
+            obj
+          });
+        }
       })
       .catch(reason => {
-        res.status(500).json({
-          status: "error",
-          message: reason
-        });
+        if (res) {
+          res.status(500).json({
+            status: "error",
+            message: reason
+          });
+        }
       });
   };
 

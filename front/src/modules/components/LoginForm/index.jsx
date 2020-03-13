@@ -13,7 +13,7 @@ import { userActions } from "redux/actions";
 
 import store from "redux/store";
 
-const LoginForm = onSubmit => {
+const LoginForm = ({ onSubmit }) => {
   // const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,8 +24,9 @@ const LoginForm = onSubmit => {
     store
       .dispatch(userActions.fetchUserSignin({ username, password }))
       .then(({ status }) => {
+        console.log("status :", status);
         if (status === "success") {
-          onSubmit();
+          onSubmit("/profile");
         }
       })
       .catch(() => console.log("LoginForm error login"));

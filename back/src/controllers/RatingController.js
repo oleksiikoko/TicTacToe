@@ -61,7 +61,9 @@ class RatingController {
 
   getRatingNumber = async _id => {
     const ratings = await RatingModel.aggregate([{ $sort: { rating: 1 } }]);
-    const ratingNumber = ratings.findIndex(rating => (rating.user = _id));
+    const ratingNumber = ratings.findIndex(rating => {
+      return rating.user.toHexString() === _id;
+    });
 
     console.log("ratings[ratingNumber]", ratings);
     return {
