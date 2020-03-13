@@ -23,3 +23,9 @@ The game is up to 3 points.
 
 front: https://pet-tictactoe.herokuapp.com/
 back: http://pet-tictactoe-back.herokuapp.com/
+
+- Singin
+- Singup
+- StartGame
+- Redirect to profile
+- Click on game item
