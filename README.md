@@ -19,7 +19,7 @@ The game is up to 3 points.
 - JWToken
 - Socket.io
 
-# Deploy:
+# Deploy
 
 front: https://pet-tictactoe.herokuapp.com/
 back: http://pet-tictactoe-back.herokuapp.com/
